@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const id = req.params.id;
   const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  const expense = db.expenses.find((item: any) => item.id == id);
+  const expense = db.expenses.find((item: any) => Number(item.id) == Number(id));
   if (expense) {
     res.json(expense);
   } else {
@@ -41,7 +41,7 @@ router.patch("/:id", (req, res) => {
   const id = req.params.id;
   const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
   const index = db.expenses.findIndex((item: any) => item.id == id);
-
+  
   if (index !== -1) {
     // 新しいデータで上書き
     db.expenses[index] = { ...db.expenses[index], ...req.body, id }; // idはそのまま

@@ -9,18 +9,15 @@ import cors from 'cors';
 const app = express();
 const port = 4000;
 
+app.use(cors());
+app.use(express.json());
+
 // http://localhost:4000(GET)にアクセスした際の処理
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-//CORSミドルウェア
-app.use(cors());
-
-//JSONミドルウェア
-app.use(express.json());
-
-// ルーティングの処理　第一引数にアクセスしたらuserRouterが適用される
+// ルーティングの処理　第一引数にアクセスしたらXXXXRouterが適用される
 app.use('/user', userRouter);
 app.use('/expenses', expensesRouter);
 app.use('/categories', categoriesRouter);

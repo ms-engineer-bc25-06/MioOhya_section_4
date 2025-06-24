@@ -71,11 +71,49 @@
       "category": "教育費",
       "amount": 5000,
       "memo": ""
+    },
+    {
+      "date": "2025-06-24",
+      "type": "支出",
+      "category": "お小遣い",
+      "amount": 1000,
+      "memo": "夏目のお小遣い",
+      "id": "1750732441166"
+    },
+    {
+      "date": "2025-06-24",
+      "type": "支出",
+      "category": "お小遣い",
+      "amount": 500,
+      "memo": "パパのお小遣い",
+      "id": "1750733664648"
+    },
+    {
+      "date": "2025-06-25",
+      "type": "支出",
+      "category": "医療費",
+      "amount": 5000,
+      "memo": "",
+      "id": "1750742948529"
     }
   ],
   "budgets": [
     {
       "id": 1,
+      "year": 2025,
+      "month": 6,
+      "category": "食費",
+      "amount": 50000
+    },
+    {
+      "id": 2,
+      "year": 2025,
+      "month": 6,
+      "category": "食費",
+      "amount": 50000
+    },
+    {
+      "id": 3,
       "year": 2025,
       "month": 6,
       "category": "食費",
