@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
 });
 
 //特定の明細更新
-router.put("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
   const id = req.params.id;
   const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
   const index = db.expenses.findIndex((item: any) => item.id == id);
