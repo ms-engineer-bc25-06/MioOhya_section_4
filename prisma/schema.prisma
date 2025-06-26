@@ -22,3 +22,11 @@ model Expense {
   amount    Int
   memo      String?
 }
+
+model  Budgets{
+  id        Int      @id @default(autoincrement())
+  Year      Int
+  month      Int
+  category  String
+  amount    Int
+}
