@@ -28,5 +28,5 @@
   },
 },
 "prisma": {
-  "seed": "node prisma/seed.js"
+  "seed": "node prisma/seed.ts"
 }
