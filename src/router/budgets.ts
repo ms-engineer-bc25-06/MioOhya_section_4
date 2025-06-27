@@ -7,9 +7,13 @@ const prisma = new PrismaClient();
 
 
 // 予算一覧取得
-router.get("/", async (req, res) => {
-  const budgets = await prisma.budgets.findMany();
-  res.json(budgets);
+router.get("/", async (req, res, next) => {
+  try {
+    const budgets = await prisma.budgets.findMany();
+    res.json(budgets);
+  } catch (err) {
+    next(err); // エラーハンドラに渡す
+  }
 });
 
 // 予算詳細取得

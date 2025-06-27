@@ -3,11 +3,11 @@
 家計簿アプリのユーザーの入力情報を管理するためのRESTful APIです。
 
 ## 1. API概要
-- **ベースURL:** `http://localhost:3003/)`
+- **ベースURL:** `(http://localhost:3003/)`
 - **認証:** 
 - **データ形式:** JSON
 - **バージョン:** v1
-- **リソース:**  expenses(家計簿データ),categories(カテゴリデータ), budgets(予算データ)
+- **リソース:**  ☑️expenses(家計簿データ),◻️categories(カテゴリデータ), ☑️budgets(予算データ)
 
 ## 2. エンドポイント一覧
 
@@ -15,6 +15,7 @@
 - エンドポイント: 
 - メソッド: `GET`,`POST`, `PATCH`, `DELETE`
 - 説明: 家計簿データを参照・登録・修正・削除
+- 
 #### 📥 リクエスト例:
 ``` 
 GET /api/expenses/
@@ -30,31 +31,15 @@ GET /api/expenses/
 "memo": "ランチ"
 }
 ```
-#### 📤 バリデーションエラー:
+#### 📤 バリデーションエラー:（まだ実装していないので、今後以下のようにしたいです）
 ```
 {
   "error": "Bad request",
-  "message": "amountは必須です"
-}
-```
-#### 📤 ID未検出時:
-```
-{
-  "error": "Not found",
-  "message": "指定したIDのデータは存在しません"
-}
-```
-#### 📤 認証エラー時:
-```
-{
-  "error": "Unauthorized",
-  "message": "認証トークンが無効です"
+  "message": "この項目は必須です"
 }
 ```
 
-
-
-### 2-2. カテゴリデータ管理
+### 2-2. カテゴリデータ管理（まだ実装していないので、今後以下のようにしたいです）
 - エンドポイント: 
 - メソッド: `GET`,`POST`, `PATCH`, `DELETE`
 - 説明: カテゴリデータを参照・登録・修正・削除
@@ -102,23 +87,15 @@ GET /api/budgets/
 "amount": 50000 
 }
 ```
-#### 📤 バリデーションエラー:
+#### 📤 バリデーションエラー:（まだ実装していないので、今後以下のようにしたいです）
 ```
 {
   "error": "Bad request",
-  "message": "amountは必須です"
+  "message": "この項目は必須です"
 }
 ```
 
-## 3. 認証
-- **方式:** Firebase Authentication (Token認証)
-- **ヘッダー:**
-
-```
-Authorization: Bearer <Firebase Token>
-```
-
-## 4. ステータスコード
+## 3. ステータスコード
 - `200 OK`: 正常終了
 - `201 Created`: リソース作成
 - `400 Bad Request`: リクエストエラー
