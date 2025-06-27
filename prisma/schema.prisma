@@ -14,18 +14,18 @@ datasource db {
 }
 
 model Expense {
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   date      DateTime
   type      String
   category  String
-  amount    Int
+  amount    BigInt
   memo      String?
 }
 
 model  Budgets{
-  id        Int      @id @default(autoincrement())
+  id        BigInt      @id @default(autoincrement())
   Year      Int
   month      Int
   category  String
-  amount    Int
+  amount    BigInt
 }
