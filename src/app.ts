@@ -12,6 +12,16 @@ const port = 4000;
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const oldJson = res.json;
+  res.json = function (data) {
+    const replacer = (key: string, value: any) =>
+      typeof value === 'bigint' ? value.toString() : value;
+    return oldJson.call(this, JSON.parse(JSON.stringify(data, replacer)));
+  };
+  next();
+});
+
 // http://localhost:4000(GET)にアクセスした際の処理
 app.get('/', (req, res) => {
   res.send('Hello World!');

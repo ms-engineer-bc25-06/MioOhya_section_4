@@ -1,22 +1,23 @@
 import { Router } from "express";
-import fs from "fs";
-import path from "path";
+import { PrismaClient } from '@prisma/client';
 
 const router = Router();
-const dbPath = path.join(__dirname, "../../db.json");
+
+const prisma = new PrismaClient();
 
 
 // 予算一覧取得
-router.get("/", (req, res) => {
-  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  res.json(db.budgets);
+router.get("/", async (req, res) => {
+  const budgets = await prisma.budgets.findMany();
+  res.json(budgets);
 });
 
 // 予算詳細取得
-router.get("/:id", (req, res) => {
-  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  const id = Number(req.params.id);
-  const budget = db.budgets.find((b: any) => b.id === id);
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const budget = await prisma.budgets.findUnique({
+    where: { id: Number(id) },
+  });
   if (budget) {
     res.json(budget);
   } else {
@@ -25,45 +26,30 @@ router.get("/:id", (req, res) => {
 });
 
 // 予算新規登録
-router.post("/", (req, res) => {
-  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  // 新しいIDを採番（既存の最大ID+1）
-  const newId = db.budgets.length > 0 ? Math.max(...db.budgets.map((b: any) => b.id)) + 1 : 1;
-  const newBudget = {
-    id: newId,
-    ...req.body,
-  };
-  db.budgets.push(newBudget);
-  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+router.post("/", async (req, res) => {
+  const newBudget = await prisma.budgets.create({
+    data: req.body,
+  });
   res.status(201).json(newBudget);
 });
 
 // 予算更新
-router.patch("/:id", (req, res) => {
-  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  const id = Number(req.params.id);
-  const index = db.budgets.findIndex((b: any) => b.id === id);
-  if (index !== -1) {
-    db.budgets[index] = { ...db.budgets[index], ...req.body };
-    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-    res.json(db.budgets[index]);
-  } else {
-    res.status(404).json({ error: "Not found" });
-  }
+router.patch("/:id", async (req, res) => {
+  const id = req.params.id;
+  const budget = await prisma.budgets.update({
+    where: { id: Number(id) },
+    data: req.body,
+  });
+  res.json(budget);
 });
 
 // 予算削除
-router.delete("/:id", (req, res) => {
-  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
-  const id = Number(req.params.id);
-  const index = db.budgets.findIndex((b: any) => b.id === id);
-  if (index !== -1) {
-    db.budgets.splice(index, 1);
-    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
-    res.status(204).send();
-  } else {
-    res.status(404).json({ error: "Not found" });
-  }
+router.delete("/:id", async(req, res) => {
+  const id = req.params.id;
+  const budget = await prisma.budgets.delete({
+    where: { id: Number(id) },
+  });
+  res.json({ message: "Deleted" });
 });
 
 export default router;
