@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import winston from 'winston';
-import userRouter from './router/user';
+import userRouter from './router/users';
 import expensesRouter from './router/expenses';
 import categoriesRouter from './router/categories';
 import budgetsRouter from './router/budgets';
@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 });
 
 // ルーティングの処理　第一引数にアクセスしたらXXXXRouterが適用される
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/expenses', expensesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/budgets', budgetsRouter);
