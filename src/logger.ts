@@ -7,7 +7,11 @@ const logDir = path.join(__dirname, "../logs");
 const logger = createLogger({
   level: "debug", // debug以上
   format: format.combine(
+    format.colorize(),
     format.timestamp(),
+    format.printf(({ timestamp, level, message }) => {
+      return `${timestamp} [${level}]: ${message}`;
+    }),
     format.json()
   ),
   transports: [

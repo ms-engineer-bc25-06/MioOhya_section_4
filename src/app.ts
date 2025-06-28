@@ -35,6 +35,7 @@ const stream = {
 // MorganミドルウェアをWinstonと連携
 app.use(morgan('combined', { stream }));
 
+//BigIntを文字列に変換するミドルウェア
 app.use((req, res, next) => {
   const oldJson = res.json;
   res.json = function (data) {
