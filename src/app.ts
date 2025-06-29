@@ -6,6 +6,8 @@ import expensesRouter from './router/expenses';
 import categoriesRouter from './router/categories';
 import budgetsRouter from './router/budgets';
 import cors from 'cors';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 // Winstonの設定
 const logger = winston.createLogger({
@@ -57,10 +59,20 @@ app.use('/expenses', expensesRouter);
 app.use('/categories', categoriesRouter);
 app.use('/budgets', budgetsRouter);
 
-// エラーハンドラ（例外処理は各ルートに記載予定）
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  logger.error(err.stack);
-  res.status(500).send("500 Internal Server Error. Please check the server logs.");
+// エラーハンドラー（想定外のエラーが発生した場合の処理）
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  // 詳細なエラーログを出力
+  logger.error('想定外のエラーが発生しました', {
+    error: err.message,
+    stack: err.stack,
+    errorType: err.constructor.name,
+    url: req.url,
+    method: req.method,
+    userAgent: req.headers['user-agent'],
+    timestamp: new Date().toISOString()
+  });
+  
+  res.status(500).send("500 インターネットのサーバーエラーです。サーバーのログを確認してください。");
 });
 
 // 確認用
