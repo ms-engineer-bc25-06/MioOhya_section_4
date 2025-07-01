@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "node build/app.js",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "keywords": [],
   "author": "",
@@ -39,7 +41,8 @@
     "prisma": "^6.10.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.35.0"
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^3.2.4"
   },
   "prisma": {
     "seed": "node prisma/seed.ts"
